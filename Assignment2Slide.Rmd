@@ -1,0 +1,33 @@
+---
+title: "Course2 Assignment"
+author: "Zain Ul Ebad"
+date: "3/7/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## The "Eden" in the movie "Logan"
+### From the recently published movie "Logan", we see a location for the young mutants to go to be safe, Eden in North Dakota. After the movie was on, so many people doubted the truthfulness of this location. In the following map is the true place named Eden.
+
+```{r}
+library(leaflet)
+xmanicon <- makeIcon(
+  iconUrl = 'X-Men-PNG-Clipart.png',
+  iconWidth = 20, iconHeight = 20
+  
+)
+map_eden <- leaflet() %>%
+  addProviderTiles(providers$Esri.NatGeoWorldMap) %>%
+  addProviderTiles(providers$Stamen.TonerLabels,options = providerTileOptions(opacity = 0.45)) %>%
+  addMarkers(lat=48.5161827, lng=-97.8651235, icon = xmanicon, popup = "<a href='http://www.thewrap.com/logan-eden-xmen-marvel-comics/'>Eden</a>") %>%
+  addWMSTiles(
+    "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi",
+    layers = "nexrad-n0r-900913",
+    options = WMSTileOptions(format = "image/png", transparent = TRUE),
+    attribution = "Weather data © 2012 IEM Nexrad"
+  )
+map_eden
+```
